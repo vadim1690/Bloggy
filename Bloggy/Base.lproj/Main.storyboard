@@ -20,7 +20,7 @@
                                 <rect key="frame" x="10" y="69" width="373" height="739"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="120" id="jDP-GV-Nzk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="blogCell" rowHeight="120" id="jDP-GV-Nzk" customClass="BlogCell" customModule="Bloggy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="373" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jDP-GV-Nzk" id="eMY-NX-DtU">
@@ -33,12 +33,6 @@
                                                         <constraint firstAttribute="width" constant="102" id="jh8-NO-n76"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My trip to island" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXd-u9-3Yh">
-                                                    <rect key="frame" x="130" y="11" width="170.66666666666663" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7 min read" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Osg-ha-Z47">
                                                     <rect key="frame" x="130" y="50" width="170.66666666666663" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
@@ -59,6 +53,12 @@
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My trip to island" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXd-u9-3Yh">
+                                                    <rect key="frame" x="130" y="11" width="170.66666666666663" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lXd-u9-3Yh" firstAttribute="leading" secondItem="Osg-ha-Z47" secondAttribute="leading" id="50Y-vc-zTY"/>
@@ -75,6 +75,11 @@
                                                 <constraint firstItem="9Nt-Tm-tEj" firstAttribute="leading" secondItem="Osg-ha-Z47" secondAttribute="leading" id="sBk-o6-IdO"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="blogReadTimeLabel" destination="Osg-ha-Z47" id="his-MP-TQR"/>
+                                            <outlet property="blogTitleLabel" destination="lXd-u9-3Yh" id="x02-l4-OWS"/>
+                                            <outlet property="blogViewersLabel" destination="LfF-rz-2bH" id="sYe-3W-Xh0"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -88,6 +93,9 @@
                             <constraint firstItem="EA3-qh-pCv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Pwj-Vl-zcM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableVIewBlogs" destination="EA3-qh-pCv" id="bfR-Uc-zrZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
