@@ -17,10 +17,22 @@ class ViewController: UIViewController ,UITableViewDataSource{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let blogRef = Database.database().reference().child("blogs").childByAutoId()
         
         blogs = Blog().mockData()
         tableVIewBlogs.dataSource = self
         
+        
+        let blog = Blog(
+            title: "Example Blog",
+            imageURL: "https://example.com/image.jpg",
+            text: "Lorem ipsum dolor sit amet...",
+            viewers: 100,
+            creationDate: Date(),
+            location: (latitude: 37.123, longitude: -122.456),
+            readTime: 5
+        )
+        blogRef.setValue(blog.toDictionary())
         
         
     }

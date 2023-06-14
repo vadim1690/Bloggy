@@ -31,7 +31,23 @@ class Blog{
     init() {
         
     }
-    
+    // Convert Blog class to a dictionary
+    func toDictionary() -> [String: Any] {
+            var dict: [String: Any] = [:]
+            
+            dict["title"] = title
+            dict["imageURL"] = imageURL
+            dict["text"] = text
+            dict["viewers"] = viewers
+            dict["creationDate"] = creationDate?.timeIntervalSince1970
+            dict["location"] = [
+                "latitude": location?.latitude,
+                "longitude": location?.longitude
+            ]
+            dict["readTime"] = readTime
+            
+            return dict
+        }
 
     
     func mockData() -> [Blog] {
