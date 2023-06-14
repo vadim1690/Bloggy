@@ -2,12 +2,15 @@
 //  Blog.swift
 //  Bloggy
 //
-//  Created by Student29 on 13/06/2023.
+//  Created by Student28 on 13/06/2023.
 //
 
 import Foundation
-class Blog{
-    
+import Firebase
+
+class Blog: Codable {
+    var id: String?
+
     var title: String?
     var imageURL: String?
     var text: String?
@@ -15,7 +18,18 @@ class Blog{
     var creationDate: Date?
     var location: (latitude: Double, longitude: Double)?
     var readTime: Int?
-    
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case imageURL
+        case text
+        case viewers
+        case creationDate
+        case location
+        case readTime
+    }
+
     init(title: String? = nil, imageURL: String? = nil, text: String? = nil, viewers: Int? = nil, creationDate: Date? = nil, location: (latitude: Double, longitude: Double)? = nil, readTime: Int? = nil) {
         self.title = title
         self.imageURL = imageURL
@@ -24,56 +38,61 @@ class Blog{
         self.creationDate = creationDate
         self.location = location
         self.readTime = readTime
-    }
-    
 
-    
-    init() {
-        
+        self.id = UUID().uuidString
     }
-    // Convert Blog class to a dictionary
+
     func toDictionary() -> [String: Any] {
-            var dict: [String: Any] = [:]
-            
-            dict["title"] = title
-            dict["imageURL"] = imageURL
-            dict["text"] = text
-            dict["viewers"] = viewers
-            dict["creationDate"] = creationDate?.timeIntervalSince1970
-            dict["location"] = [
-                "latitude": location?.latitude,
-                "longitude": location?.longitude
-            ]
-            dict["readTime"] = readTime
-            
-            return dict
+        var dict: [String: Any] = [:]
+
+        dict["id"] = id
+        dict["title"] = title
+        dict["imageURL"] = imageURL
+        dict["text"] = text
+        dict["viewers"] = viewers
+        dict["creationDate"] = creationDate?.timeIntervalSince1970
+        dict["location"] = [
+            "latitude": location?.latitude,
+            "longitude": location?.longitude
+        ]
+        dict["readTime"] = readTime
+
+        return dict
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        id = try container.decodeIfPresent(String.self, forKey: .id)
+        title = try container.decodeIfPresent(String.self, forKey: .title)
+        imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL)
+        text = try container.decodeIfPresent(String.self, forKey: .text)
+        viewers = try container.decodeIfPresent(Int.self, forKey: .viewers)
+
+        if let creationTimeInterval = try container.decodeIfPresent(TimeInterval.self, forKey: .creationDate) {
+            creationDate = Date(timeIntervalSince1970: creationTimeInterval)
         }
 
-    
-    func mockData() -> [Blog] {
-        var blogs: [Blog] = []
-        let blog1 = Blog(title: "First Blog Title", imageURL: "https://example.com/image1.jpg", text: "Lorem ipsum dolor sit amet.", viewers: 100, creationDate: Date(), location: (latitude: 37.7749, longitude: -122.4194), readTime: 10)
-        
-        let blog2 = Blog(title: "Second Blog Title", imageURL: "https://example.com/image2.jpg", text: "Lorem ipsum dolor sit amet.", viewers: 200, creationDate: Date(), location: (latitude: 40.7128, longitude: -74.0060), readTime: 15)
+        if let locationDict = try container.decodeIfPresent([String: Double].self, forKey: .location),
+           let latitude = locationDict["latitude"],
+           let longitude = locationDict["longitude"] {
+            location = (latitude: latitude, longitude: longitude)
+        }
 
-        
-        let blog3 = Blog(title: "Third Blog Title", imageURL: "https://example.com/image3.jpg", text: "Lorem ipsum dolor sit amet.", viewers: 300, creationDate: Date(), location: (latitude: 51.5074, longitude: -0.1278), readTime: 20)
-        
-        let blog4 = Blog(title: "Fourth Blog Title", imageURL: "https://example.com/image4.jpg", text: "Lorem ipsum dolor sit amet.", viewers: 400, creationDate: Date(), location: (latitude: 48.8566, longitude: 2.3522), readTime: 25)
-        
-        let blog5 = Blog(title: "Fifth Blog Title", imageURL: "https://example.com/image5.jpg", text: "Lorem ipsum dolor sit amet.", viewers: 500, creationDate: Date(), location: (latitude: 35.6895, longitude: 139.6917), readTime: 30)
-
-
-
-
-
-        blogs.append(blog1)
-        blogs.append(blog2)
-        blogs.append(blog3)
-        blogs.append(blog4)
-        blogs.append(blog5)
-
-        return blogs
+        readTime = try container.decodeIfPresent(Int.self, forKey: .readTime)
     }
-    
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(title, forKey: .title)
+        try container.encode(imageURL, forKey: .imageURL)
+        try container.encode(text, forKey: .text)
+        try container.encode(viewers, forKey: .viewers)
+        try container.encode(creationDate?.timeIntervalSince1970, forKey: .creationDate)
+        try container.encodeIfPresent(location?.latitude, forKey: .location)
+        try container.encodeIfPresent(location?.longitude, forKey: .location)
+        try container.encode(readTime, forKey: .readTime)
+    }
 }

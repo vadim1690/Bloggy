@@ -2,12 +2,11 @@
 //  ViewController.swift
 //  Bloggy
 //
-//  Created by Student29 on 13/06/2023.
+//  Created by Student28 on 13/06/2023.
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseStorage
+
 class ViewController: UIViewController ,UITableViewDataSource{
     
     @IBOutlet weak var tableVIewBlogs:UITableView!
@@ -16,12 +15,7 @@ class ViewController: UIViewController ,UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let blogRef = Database.database().reference().child("blogs").childByAutoId()
-        
-        blogs = Blog().mockData()
-        tableVIewBlogs.dataSource = self
-        
+
         
         let blog = Blog(
             title: "Example Blog",
@@ -32,7 +26,18 @@ class ViewController: UIViewController ,UITableViewDataSource{
             location: (latitude: 37.123, longitude: -122.456),
             readTime: 5
         )
-        blogRef.setValue(blog.toDictionary())
+        FirebaseManager.shared.saveBlog(blog:blog)
+        
+        FirebaseManager.shared.readBlogs { blogs in
+            self.blogs = blogs
+            self.tableVIewBlogs.reloadData()
+//            for blog in blogs {
+//                print("Blog ID: \(blog.id ?? "")")
+//                print("Title: \(blog.title ?? "")")
+//                // Access other properties of the Blog object as needed
+//            }
+        }
+        tableVIewBlogs.dataSource = self
         
         
     }

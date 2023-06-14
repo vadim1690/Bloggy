@@ -2,7 +2,7 @@
 //  BlogCell.swift
 //  Bloggy
 //
-//  Created by Student29 on 13/06/2023.
+//  Created by Student28 on 13/06/2023.
 //
 
 import Foundation
