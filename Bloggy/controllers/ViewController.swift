@@ -21,6 +21,8 @@ class ViewController: UIViewController ,UITableViewDataSource{
         blogs = Blog().mockData()
         tableVIewBlogs.dataSource = self
         
+        
+        
     }
     
     
