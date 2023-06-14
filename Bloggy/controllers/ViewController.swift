@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController ,UITableViewDataSource{
+class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var tableVIewBlogs:UITableView!
     
@@ -16,17 +16,22 @@ class ViewController: UIViewController ,UITableViewDataSource{
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableVIewBlogs.dataSource = self
+        tableVIewBlogs.delegate = self
         
-        let blog = Blog(
-            title: "Example Blog",
-            imageURL: "https://example.com/image.jpg",
-            text: "Lorem ipsum dolor sit amet...",
-            viewers: 100,
-            creationDate: Date(),
-            location: (latitude: 37.123, longitude: -122.456),
-            readTime: 5
-        )
-        FirebaseManager.shared.saveBlog(blog:blog)
+//
+//        let blog = Blog(
+//            title: "Example Blog",
+//            imageURL: "https://example.com/image.jpg",
+//            text: "Lorem ipsum dolor sit amet...",
+//            viewers: 100,
+//            creationDate: Date(),
+//            location: (latitude: 37.123, longitude: -122.456),
+//            readTime: 5
+//        )
+//        FirebaseManager.shared.saveBlog(blog:blog)
+    
+    
         
         FirebaseManager.shared.readBlogs { blogs in
             self.blogs = blogs
@@ -37,7 +42,7 @@ class ViewController: UIViewController ,UITableViewDataSource{
 //                // Access other properties of the Blog object as needed
 //            }
         }
-        tableVIewBlogs.dataSource = self
+        
         
         
     }
@@ -48,12 +53,26 @@ class ViewController: UIViewController ,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let blog = blogs[indexPath.row]
+//        let cell = tableVIewBlogs.dequeueReusableCell(withIdentifier: "blogCell") as! BlogCell
+//        cell.blogTitleLabel.text = blog.title
+//        cell.blogViewersLabel.text = String(blog.viewers!)
+//        cell.blogReadTimeLabel.text = "\(blog.readTime ?? 0) min read"
+//        return cell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "blogCell", for: indexPath) as! BlogCell
         let blog = blogs[indexPath.row]
-        let cell = tableVIewBlogs.dequeueReusableCell(withIdentifier: "blogCell") as! BlogCell
-        cell.blogTitleLabel.text = blog.title
-        cell.blogViewersLabel.text = String(blog.viewers!)
-        cell.blogReadTimeLabel.text = "\(blog.readTime ?? 0) min read"
+        cell.configure(with: blog)
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedBlog = blogs[indexPath.row]
+        // Perform any action you want with the selected blog
+        print("Selected blog: \(selectedBlog.title ?? "")")
+        selectedBlog.viewers = selectedBlog.viewers! + 1
+        FirebaseManager.shared.updateBlog(blog: selectedBlog)
     }
 
 

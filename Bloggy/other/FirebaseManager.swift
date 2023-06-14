@@ -59,4 +59,22 @@ class FirebaseManager {
                return nil
            }
        }
+    
+    
+    func updateBlog(blog: Blog) {
+        guard let blogId = blog.id else {
+            return
+        }
+
+        let blogDict = blog.toDictionary()
+
+        blogRef.child(blogId).updateChildValues(blogDict) { (error, _) in
+            if let error = error {
+                print("Failed to update blog: \(error.localizedDescription)")
+            } else {
+                print("Blog updated successfully")
+            }
+        }
+    }
+
 }
