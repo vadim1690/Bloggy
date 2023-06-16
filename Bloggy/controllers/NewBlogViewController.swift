@@ -1,5 +1,5 @@
 //
-//  BlogViewController.swift
+//  NewBlogViewController.swift
 //  Bloggy
 //
 //  Created by Student28 on 16/06/2023.
@@ -7,21 +7,12 @@
 
 import UIKit
 
-class BlogViewController: UIViewController {
-    
-    var blog: Blog?
-    @IBOutlet weak var blogTitle: UILabel!
-    @IBOutlet weak var blogImage: UIImageView!
-    @IBOutlet weak var blogText: UITextView!
+class NewBlogViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        blogTitle.text = blog?.title
-        blogText.text = blog?.text
-        blogText.isEditable = false
-        
     }
     
 

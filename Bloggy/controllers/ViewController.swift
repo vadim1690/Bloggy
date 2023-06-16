@@ -13,28 +13,26 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
     
     var blogs: [Blog] = []
     
+    @IBOutlet weak var progressCircle: UIActivityIndicatorView!
+    @IBOutlet weak var addButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableVIewBlogs.dataSource = self
         tableVIewBlogs.delegate = self
-        
-//
-//        let blog = Blog(
-//            title: "Example Blog",
-//            imageURL: "https://example.com/image.jpg",
-//            text: "Lorem ipsum dolor sit amet...",
-//            viewers: 100,
-//            creationDate: Date(),
-//            location: (latitude: 37.123, longitude: -122.456),
-//            readTime: 5
-//        )
-//        FirebaseManager.shared.saveBlog(blog:blog)
+        addButton.layer.cornerRadius = 15
+        addButton.layer.shadowColor = UIColor.black.cgColor
+        addButton.layer.shadowOpacity = 0.5
+        addButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        addButton.layer.shadowRadius = 4
     
-    
-        
+
+        tableVIewBlogs.isHidden = true
+        progressCircle.isHidden = false
         FirebaseManager.shared.readBlogs { blogs in
             self.blogs = blogs
+            self.tableVIewBlogs.isHidden = false
+            self.progressCircle.isHidden = true
             self.tableVIewBlogs.reloadData()
 //            for blog in blogs {
 //                print("Blog ID: \(blog.id ?? "")")
@@ -45,6 +43,14 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
         
         
         
+    }
+    
+    
+    @IBAction func addPostClicked(_ sender: Any) {
+        let newBlogViewController = storyboard?.instantiateViewController(withIdentifier: "NewBlogViewController") as? NewBlogViewController
+        navigationController?.pushViewController(newBlogViewController!, animated:true)
+        
+    
     }
     
     
