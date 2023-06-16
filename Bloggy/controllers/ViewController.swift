@@ -71,8 +71,9 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
         let selectedBlog = blogs[indexPath.row]
         // Perform any action you want with the selected blog
         print("Selected blog: \(selectedBlog.title ?? "")")
-        selectedBlog.viewers = selectedBlog.viewers! + 1
-        FirebaseManager.shared.updateBlog(blog: selectedBlog)
+        let blogViewController = storyboard?.instantiateViewController(withIdentifier: "BlogViewController") as? BlogViewController
+        blogViewController?.blog = selectedBlog
+        navigationController?.pushViewController(blogViewController!, animated:true)
     }
 
 

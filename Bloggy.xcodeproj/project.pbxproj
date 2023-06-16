@@ -31,6 +31,7 @@
 		C2A0FA772A3A250300DB068F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0FA762A3A250300DB068F /* FirebaseManager.swift */; };
 		C2A0FA782A3A250300DB068F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0FA762A3A250300DB068F /* FirebaseManager.swift */; };
 		C2A0FA792A3A250300DB068F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0FA762A3A250300DB068F /* FirebaseManager.swift */; };
+		C2D81FCA2A3C7EAD00682BE3 /* BlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D81FC92A3C7EAD00682BE3 /* BlogViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		C1EA2FBA2A39062C00F192D8 /* BlogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCell.swift; sourceTree = "<group>"; };
 		C2A0FA722A3A160000DB068F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C2A0FA762A3A250300DB068F /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		C2D81FC92A3C7EAD00682BE3 /* BlogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			children = (
 				C1EA2FBA2A39062C00F192D8 /* BlogCell.swift */,
 				C1EA2F772A38F9C800F192D8 /* ViewController.swift */,
+				C2D81FC92A3C7EAD00682BE3 /* BlogViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				C1EA2FB52A39034600F192D8 /* Blog.swift in Sources */,
 				C1EA2F762A38F9C800F192D8 /* SceneDelegate.swift in Sources */,
 				C1EA2F7E2A38F9C800F192D8 /* Bloggy.xcdatamodeld in Sources */,
+				C2D81FCA2A3C7EAD00682BE3 /* BlogViewController.swift in Sources */,
 				C1EA2FBB2A39062C00F192D8 /* BlogCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
