@@ -23,15 +23,52 @@ class NewBlogViewController: UIViewController {
             let blog = Blog()
             blog.title = blogTitleEditText.text
             blog.text = blogTextTv.text
-            blog.readTime = blog.text!.count / 800
+            blog.readTime = (blog.text!.count / 700) + 1
             blog.viewers = 0
-            FirebaseManager.shared.saveBlog(blog: blog)
+            FirebaseManager.shared.saveBlog(blog: blog) { error in
+                if let error = error {
+                    // Handle error
+                    print("Error saving blog: \(error.localizedDescription)")
+                    
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error", message: "Failed to save blog", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                } else {
+                    // Blog saved successfully
+                    print("Blog saved successfully!")
+                    
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Success", message: "Blog saved successfully", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }
     
     
     private func validateFields() -> Bool{
+        if blogTextTv.text.count < 200{
+            let alert = UIAlertController(title: "Error", message: "Must enter at least 200 characters in the blog text", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        
+        if (blogTitleEditText.text!.isEmpty) {
+            let alert = UIAlertController(title: "Error", message: "Must enter a title", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
         return true
     }
     

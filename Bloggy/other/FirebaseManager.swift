@@ -15,17 +15,21 @@ class FirebaseManager {
 
     private init() {} // Private initializer for singleton
     
-    func saveBlog(blog: Blog) {
+    func saveBlog(blog: Blog, completion: @escaping (Error?) -> Void) {
         if let blogId = blog.id {
             blogRef.child(blogId).setValue(blog.toDictionary()) { error, _ in
                 if let error = error {
                     print("Error saving blog to Firebase: \(error)")
+                    completion(error)
                 } else {
                     print("Blog saved successfully!")
+                    completion(nil)
                 }
             }
         } else {
             print("Error: Unable to get the blog's id.")
+            let error = NSError(domain: "com.example.FirebaseManager", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to get blog ID"])
+            completion(error)
         }
     }
     
