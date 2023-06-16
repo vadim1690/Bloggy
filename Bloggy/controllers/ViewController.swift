@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate{
+class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
     
     @IBOutlet weak var tableVIewBlogs:UITableView!
+    private let locationManager = CLLocationManager()
+    var userLocation: (latitude: Double, longitude: Double)?
     
     var blogs: [Blog] = []
     
@@ -20,6 +23,12 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
 
         tableVIewBlogs.dataSource = self
         tableVIewBlogs.delegate = self
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        
+        
         addButton.layer.cornerRadius = 15
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.5
@@ -45,9 +54,41 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
         
     }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        case .denied, .restricted:
+            // Handle denied or restricted authorization
+            // You can show an alert or take appropriate action
+            break
+        default:
+            locationManager.stopUpdatingLocation()
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        
+        // Use the latitude and longitude values as needed
+        print("Latitude: \(latitude), Longitude: \(longitude)")
+        
+        
+        userLocation = (latitude: latitude, longitude: longitude)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // Handle location update errors
+        print("Location update error: \(error.localizedDescription)")
+    }
+    
     
     @IBAction func addPostClicked(_ sender: Any) {
         let newBlogViewController = storyboard?.instantiateViewController(withIdentifier: "NewBlogViewController") as? NewBlogViewController
+        newBlogViewController?.userLocation = userLocation
         navigationController?.pushViewController(newBlogViewController!, animated:true)
         
     

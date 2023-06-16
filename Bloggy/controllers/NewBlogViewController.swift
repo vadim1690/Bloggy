@@ -12,6 +12,9 @@ class NewBlogViewController: UIViewController {
     @IBOutlet weak var blogTextTv: UITextView!
     @IBOutlet weak var blogImageView: UIImageView!
     @IBOutlet weak var blogTitleEditText: UITextField!
+    
+    var userLocation: (latitude: Double, longitude: Double)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +28,8 @@ class NewBlogViewController: UIViewController {
             blog.text = blogTextTv.text
             blog.readTime = (blog.text!.count / 700) + 1
             blog.viewers = 0
+            blog.location = userLocation
+            print("post Latitude: \(blog.location!.latitude), post Longitude: \(blog.location!.longitude)")
             FirebaseManager.shared.saveBlog(blog: blog) { error in
                 if let error = error {
                     // Handle error
@@ -56,12 +61,12 @@ class NewBlogViewController: UIViewController {
     
     
     private func validateFields() -> Bool{
-        if blogTextTv.text.count < 200{
-            let alert = UIAlertController(title: "Error", message: "Must enter at least 200 characters in the blog text", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return false
-        }
+//        if blogTextTv.text.count < 200{
+//            let alert = UIAlertController(title: "Error", message: "Must enter at least 200 characters in the blog text", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//            return false
+//        }
         
         if (blogTitleEditText.text!.isEmpty) {
             let alert = UIAlertController(title: "Error", message: "Must enter a title", preferredStyle: .alert)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10265D92A3CC98E00BEA61B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10265D82A3CC98E00BEA61B /* CoreLocation.framework */; };
 		C1EA2F742A38F9C800F192D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EA2F732A38F9C800F192D8 /* AppDelegate.swift */; };
 		C1EA2F762A38F9C800F192D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EA2F752A38F9C800F192D8 /* SceneDelegate.swift */; };
 		C1EA2F782A38F9C800F192D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EA2F772A38F9C800F192D8 /* ViewController.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C10265D82A3CC98E00BEA61B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C1EA2F702A38F9C800F192D8 /* Bloggy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bloggy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1EA2F732A38F9C800F192D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1EA2F752A38F9C800F192D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1EA2FAC2A38FACD00F192D8 /* FirebaseDatabaseSwift in Frameworks */,
+				C10265D92A3CC98E00BEA61B /* CoreLocation.framework in Frameworks */,
 				C1EA2FAE2A38FACD00F192D8 /* FirebaseStorage in Frameworks */,
 				C1EA2FAA2A38FACD00F192D8 /* FirebaseDatabase in Frameworks */,
 				C1EA2FA82A38FACD00F192D8 /* FirebaseAnalytics in Frameworks */,
@@ -107,6 +110,7 @@
 		C10265D72A3CC24B00BEA61B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C10265D82A3CC98E00BEA61B /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
