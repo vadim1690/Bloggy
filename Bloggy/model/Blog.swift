@@ -29,6 +29,10 @@ class Blog: Codable {
         case location
         case readTime
     }
+    
+    init(){
+        self.id = UUID().uuidString
+    }
 
     init(title: String? = nil, imageURL: String? = nil, text: String? = nil, viewers: Int? = nil, creationDate: Date? = nil, location: (latitude: Double, longitude: Double)? = nil, readTime: Int? = nil) {
         self.title = title

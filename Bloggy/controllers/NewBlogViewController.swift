@@ -8,14 +8,35 @@
 import UIKit
 
 class NewBlogViewController: UIViewController {
-
+    
+    @IBOutlet weak var blogTextTv: UITextView!
+    @IBOutlet weak var blogImageView: UIImageView!
+    @IBOutlet weak var blogTitleEditText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func postClicked(_ sender: Any) {
+        if validateFields(){
+            let blog = Blog()
+            blog.title = blogTitleEditText.text
+            blog.text = blogTextTv.text
+            blog.readTime = blog.text!.count / 800
+            blog.viewers = 0
+            FirebaseManager.shared.saveBlog(blog: blog)
+        }
 
+    }
+    
+    
+    private func validateFields() -> Bool{
+        return true
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 

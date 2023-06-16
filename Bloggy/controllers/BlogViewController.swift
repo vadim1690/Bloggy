@@ -22,6 +22,8 @@ class BlogViewController: UIViewController {
         blogText.text = blog?.text
         blogText.isEditable = false
         
+    
+        
     }
     
 
