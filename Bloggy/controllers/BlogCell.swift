@@ -7,16 +7,15 @@
 
 import Foundation
 import UIKit
-
-protocol CallBack_BlogCell {
-    func blogClicked(position: Int)
-}
+import Kingfisher
 
  class BlogCell: UITableViewCell {
     @IBOutlet weak var blogTitleLabel: UILabel!
     @IBOutlet weak var blogReadTimeLabel: UILabel!
     @IBOutlet weak var blogViewersLabel: UILabel!
     
+     @IBOutlet weak var blogImage: UIImageView!
+     
     
     var position: Int?
     
@@ -24,6 +23,12 @@ protocol CallBack_BlogCell {
          blogTitleLabel.text = blog.title
          blogViewersLabel.text = String(blog.viewers ?? 0)
          blogReadTimeLabel.text = "\(blog.readTime ?? 0) min read"
+         
+         
+         
+         let url = URL(string: blog.imageURL ?? "")
+         blogImage.kf.setImage(with: url, placeholder: UIImage(named: "ImagePlaceholder"))
+         
      }
     
 }

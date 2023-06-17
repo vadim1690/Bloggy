@@ -22,6 +22,22 @@ class BlogViewController: UIViewController {
         blogText.text = blog?.text
         blogText.isEditable = false
         
+        if let imageUrl = blog!.imageURL{
+           let url = URL(string: imageUrl)
+           blogImage.kf.setImage(with: url)
+           blogImage.contentMode = .scaleToFill
+        }else{
+            blogImage.image = UIImage(named: "ImagePlaceholder")
+        }
+        
+
+        
+        if let imageUrl = blog!.imageURL{
+           let url = URL(string: imageUrl)
+           blogImage.kf.setImage(with: url)
+           blogImage.contentMode = .scaleToFill
+        }
+        
     
         
     }
