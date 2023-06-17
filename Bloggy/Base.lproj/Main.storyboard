@@ -121,6 +121,9 @@
                                     <segment title="Viewers"/>
                                     <segment title="Location"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sortTypeValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="wdj-64-pm3"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rb-Yx-gp1">
                                 <rect key="frame" x="20" y="152" width="357" height="20.333333333333343"/>
@@ -166,6 +169,7 @@
                     <connections>
                         <outlet property="addButton" destination="FvE-Cs-gI5" id="hbe-Hx-P8p"/>
                         <outlet property="progressCircle" destination="pcH-ub-pSF" id="w3i-9g-Bjz"/>
+                        <outlet property="sortTypePicker" destination="svv-1h-Ln0" id="NG9-Aq-048"/>
                         <outlet property="tableVIewBlogs" destination="EA3-qh-pCv" id="bfR-Uc-zrZ"/>
                     </connections>
                 </viewController>

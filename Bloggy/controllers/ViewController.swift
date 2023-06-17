@@ -10,9 +10,14 @@ import CoreLocation
 
 class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
     
+    @IBOutlet weak var sortTypePicker: UISegmentedControl!
     @IBOutlet weak var tableVIewBlogs:UITableView!
     private let locationManager = CLLocationManager()
     var userLocation: (latitude: Double, longitude: Double)?
+    
+    let sortTypeKey = "SortTypeKey"
+    
+    var sortType : Int = 0
     
     var blogs: [Blog] = []
     
@@ -25,8 +30,16 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
         tableVIewBlogs.delegate = self
         
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        if (UserDefaults.standard.integer(forKey: sortTypeKey) != 0){
+            
+            sortType = UserDefaults.standard.integer(forKey: sortTypeKey)
+            
+        }
+        
+        sortTypePicker.selectedSegmentIndex = sortType
         
         
         addButton.layer.cornerRadius = 15
@@ -42,33 +55,100 @@ class ViewController: UIViewController ,UITableViewDataSource, UITableViewDelega
             self.blogs = blogs
             self.tableVIewBlogs.isHidden = false
             self.progressCircle.isHidden = true
-            self.tableVIewBlogs.reloadData()
-//            for blog in blogs {
-//                print("Blog ID: \(blog.id ?? "")")
-//                print("Title: \(blog.title ?? "")")
-//                // Access other properties of the Blog object as needed
-//            }
+            self.sortBlogList()
         }
         
         
         
     }
     
+    @IBAction func sortTypeValueChanged(_ sender: UISegmentedControl) {
+        
+        sortType = sender.selectedSegmentIndex
+        UserDefaults.standard.set(sortType, forKey: sortTypeKey)
+        sortBlogList()
+        
+    }
+    
+    func sortBlogList(){
+        
+        switch(sortType){
+            
+        case 0:
+            blogs = sortBlogsByCreationDate(blogs: blogs)
+            break
+        case 1:
+            blogs = sortBlogsByReadTime(blogs: blogs)
+            break
+        case 2:
+            blogs = sortBlogsByViewers(blogs: blogs)
+            break
+        case 3:
+           blogs = sortBlogsByLocation(blogs: blogs)
+            break
+            
+        default:
+            blogs = sortBlogsByCreationDate(blogs: blogs)
+            break
+        
+        }
+        
+        self.tableVIewBlogs.reloadData()
+        
+    }
+    
+    
+    func sortBlogsByCreationDate(blogs: [Blog]) -> [Blog] {
+        return blogs.sorted { $0.creationDate ?? Date() > $1.creationDate ?? Date() }
+    }
+    
+    func sortBlogsByReadTime(blogs: [Blog]) -> [Blog] {
+        return blogs.sorted { $0.readTime ?? 0 > $1.readTime ?? 0 }
+    }
+    
+    func sortBlogsByViewers(blogs: [Blog]) -> [Blog] {
+        return blogs.sorted { $0.viewers ?? 0 > $1.viewers ?? 0 }
+    }
+    
+    func sortBlogsByLocation(blogs: [Blog]) -> [Blog] {
+        return blogs.sorted { (blog1, blog2) in
+            guard let location1 = blog1.location, let location2 = blog2.location else {
+                // Handle case where one or both blogs don't have location data
+                return false
+            }
+            
+            // Compare based on latitude and longitude
+            if location1.latitude == location2.latitude {
+                return location1.longitude > location2.longitude
+            } else {
+                return location1.latitude > location2.latitude
+            }
+        }
+    }
+    
+    
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
+            print("authorizedWhenInUse")
         case .denied, .restricted:
+            print("denied or restricted")
             // Handle denied or restricted authorization
             // You can show an alert or take appropriate action
             break
         default:
+            print("default")
             locationManager.stopUpdatingLocation()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
+        guard let location = locations.last else {
+            print("Location is null")
+            return
+        }
         
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude

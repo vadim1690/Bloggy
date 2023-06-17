@@ -135,6 +135,7 @@ class NewBlogViewController: UIViewController, UIImagePickerControllerDelegate, 
         blog.text = blogTextTv.text
         blog.readTime = (blog.text!.count / 700) + 1
         blog.viewers = 0
+        blog.creationDate = Date()
         blog.location = userLocation
         blog.imageURL = imageUrl?.absoluteString
         print("post Latitude: \(blog.location!.latitude), post Longitude: \(blog.location!.longitude)")
@@ -169,12 +170,12 @@ class NewBlogViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     private func validateFields() -> Bool{
-//        if blogTextTv.text.count < 200{
-//            let alert = UIAlertController(title: "Error", message: "Must enter at least 200 characters in the blog text", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//            return false
-//        }
+        if blogTextTv.text.count < 200{
+            let alert = UIAlertController(title: "Error", message: "Must enter at least 200 characters in the blog text", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
         
         if (blogTitleEditText.text!.isEmpty) {
             let alert = UIAlertController(title: "Error", message: "Must enter a title", preferredStyle: .alert)
