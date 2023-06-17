@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EA3-qh-pCv">
-                                <rect key="frame" x="10" y="113" width="373" height="695"/>
+                                <rect key="frame" x="10" y="234" width="373" height="574"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="blogCell" rowHeight="165" id="jDP-GV-Nzk" customClass="BlogCell" customModule="Bloggy" customModuleProvider="target">
@@ -112,14 +112,54 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" systemColor="linkColor"/>
                             </activityIndicatorView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="svv-1h-Ln0">
+                                <rect key="frame" x="18" y="187" width="357" height="32"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <segments>
+                                    <segment title="Date"/>
+                                    <segment title="Read time"/>
+                                    <segment title="Viewers"/>
+                                    <segment title="Location"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rb-Yx-gp1">
+                                <rect key="frame" x="20" y="152" width="357" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" systemColor="linkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Bloggy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNp-Zm-uOC">
+                                <rect key="frame" x="20" y="103" width="233" height="41"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blog" translatesAutoresizingMaskIntoConstraints="NO" id="9sm-C2-T6M">
+                                <rect key="frame" x="274" y="81" width="88" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="FDg-dt-WoB"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="9sm-C2-T6M" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-22" id="0Ac-fR-ThY"/>
+                            <constraint firstItem="WNp-Zm-uOC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4pn-6P-aqn"/>
+                            <constraint firstItem="0Rb-Yx-gp1" firstAttribute="top" secondItem="WNp-Zm-uOC" secondAttribute="bottom" constant="8" symbolic="YES" id="Ao1-DI-uj3"/>
                             <constraint firstItem="EA3-qh-pCv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="BzK-Vz-Zp7"/>
+                            <constraint firstItem="0Rb-Yx-gp1" firstAttribute="leading" secondItem="pcH-ub-pSF" secondAttribute="leading" id="CMr-3P-fev"/>
+                            <constraint firstItem="svv-1h-Ln0" firstAttribute="top" secondItem="0Rb-Yx-gp1" secondAttribute="bottom" constant="14.666666666666657" id="Fid-4w-vtb"/>
+                            <constraint firstItem="9sm-C2-T6M" firstAttribute="leading" secondItem="WNp-Zm-uOC" secondAttribute="trailing" constant="21" id="Jnn-qk-kp3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EA3-qh-pCv" secondAttribute="bottom" constant="10" id="Lz1-r6-Anq"/>
+                            <constraint firstItem="WNp-Zm-uOC" firstAttribute="leading" secondItem="0Rb-Yx-gp1" secondAttribute="leading" id="MEU-q7-jeJ"/>
                             <constraint firstItem="EA3-qh-pCv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MkT-Nf-vzY"/>
-                            <constraint firstItem="EA3-qh-pCv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Pwj-Vl-zcM"/>
+                            <constraint firstItem="EA3-qh-pCv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="131" id="Pwj-Vl-zcM"/>
+                            <constraint firstItem="0Rb-Yx-gp1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Qj3-TE-zw9"/>
+                            <constraint firstItem="0Rb-Yx-gp1" firstAttribute="trailing" secondItem="svv-1h-Ln0" secondAttribute="trailing" constant="2" id="Sf4-XG-cwK"/>
+                            <constraint firstItem="0Rb-Yx-gp1" firstAttribute="leading" secondItem="svv-1h-Ln0" secondAttribute="leading" constant="2" id="X48-hu-5FE"/>
+                            <constraint firstItem="9sm-C2-T6M" firstAttribute="centerY" secondItem="WNp-Zm-uOC" secondAttribute="centerY" id="ZwZ-Bb-k4c"/>
+                            <constraint firstItem="0Rb-Yx-gp1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="49" id="rJX-lA-Tpq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IiD-Z2-tkG"/>
@@ -274,6 +314,7 @@
     <resources>
         <image name="Image" width="170.66667175292969" height="170.66667175292969"/>
         <image name="ImagePlaceholder" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="blog" width="512" height="512"/>
         <image name="eye.fill" catalog="system" width="128" height="80"/>
         <image name="note.text.badge.plus" catalog="system" width="128" height="108"/>
         <systemColor name="labelColor">
